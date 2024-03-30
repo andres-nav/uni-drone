@@ -26,11 +26,13 @@ sudo make install
 git clone https://github.com/ricohapi/libuvc-theta-sample.git ~/libuvc-theta-sample
 cd ~/libuvc-theta-sample/gst
 make
-~/libuvc-theta-sample/gst/gst_viewer
 
 git clone https://github.com/umlaeute/v4l2loopback.git ~/v4l2loopback
 cd ~/v4l2loopback
 make && sudo make install
 sudo depmod -a
+
+~/libuvc-theta-sample/gst/gst_viewer
+
 ```
 
