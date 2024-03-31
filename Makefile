@@ -1,6 +1,7 @@
 PWD		:= $(shell pwd)
 MAKE		:= /usr/bin/make
 CMAKE		:= /usr/bin/cmake
+AUTORECONF	:= /usr/bin/autoreconf
 LIBUVC_THETA_DIR := $(PWD)/libuvc-theta
 LIBUVC_THETA_BUILD_DIR := $(LIBUVC_THETA_DIR)/build
 LIBUVC_THETA_SAMPLE_DIR := $(PWD)/libuvc-theta-sample/gst
@@ -17,6 +18,14 @@ install: install-libusb install-libuvc-theta install-libuvc-theta-sample install
 run:
 	@$(LIBUVC_THETA_SAMPLE_DIR)/gst_viewer
 
+install-libusb:
+	echo "Building libusb"
+	$(AUTORECONF) -f -i $(LIBUSB_DIR)
+	$(LIBUSB_DIR)/configure #--enable-udev --disable-static
+	make -C $(LIBUSB_DIR)
+	sudo make -C $(LIBUSB_DIR) install
+
+
 install-libuvc-theta:
 	echo "Building libuvc-theta"
 	mkdir -p $(LIBUVC_THETA_BUILD_DIR) && $(CMAKE) -S $(LIBUVC_THETA_DIR) -B $(LIBUVC_THETA_BUILD_DIR) && $(MAKE) -C $(LIBUVC_THETA_BUILD_DIR)
@@ -29,11 +38,6 @@ install-libuvc-theta-sample:
 install-v4l2loopback:
 	echo "Building v4l2loopback"
 	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install && sudo depmod -a
-
-install-libusb:
-	$(LIBUSB_DIR)/configure --enable-udev --disable-static
-	make -C $(LIBUSB_DIR)
-	sudo make -C $(LIBUSB_DIR) install
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)

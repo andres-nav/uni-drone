@@ -12,6 +12,7 @@ Password: yahboom
 ``` bash
 sudo apt update
 # sudo apt install libjpeg-dev
+# sudo apt-get install libudev-dev
 
 git clone https://github.com/ricohapi/libuvc-theta.git ~/libuvc-theta
 cd ~/libuvc-theta
