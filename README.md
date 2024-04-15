@@ -7,6 +7,10 @@ Password: yahboom
 
 - [Live streaming to Jetson](https://codetricity.github.io/theta-linux/equipment/)
 
+# Flash new Jetpack
+
+http://www.yahboom.net/study/Jetson-Orin-NANO
+
 ## Steps to install Jetson
 
 ``` bash
