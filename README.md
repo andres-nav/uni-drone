@@ -1,7 +1,7 @@
 # Jetson Orin Considertaions
 
-User: jetson
-Password: yahboom
+User: uc3m
+Password: uc3mOrin#
 
 # Live-sharing
 
