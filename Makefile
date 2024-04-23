@@ -10,9 +10,9 @@ V4L2LOOPBACK_DIR := $(PWD)/v4l2loopback
 
 .PHONY: all clean install run install-libusb install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback
 
-all: clean install
+all: run
 
-install: install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback
+install: clean install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback
 	@echo "Installation completed."
 
 run:
@@ -41,6 +41,7 @@ install-libuvc-theta-sample:
 	sudo apt install -y v4l-utils
 	sudo apt-get install gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
 	sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev
+	sudo apt-get install mesa-utils
 	$(MAKE) -C $(LIBUVC_THETA_SAMPLE_DIR)
 
 install-v4l2loopback:

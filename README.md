@@ -5,7 +5,6 @@ Password: uc3mOrin#
 
 # todo
 
-install flameshot
 
 # Live-sharing
 
