@@ -190,7 +190,8 @@ main(int argc, char **argv)
 			"v4l2sink device=/dev/video0 qos=false sync=false";
 	else
 		pipe_proc = " decodebin ! autovideosink sync=false";
-		/* pipe_proc = " decodebin ! nv3dsink sync=false"; */ //new version https://community.theta360.guide/t/live-streaming-over-usb-on-ubuntu-and-linux-nvidia-jetson/4359/42
+
+	// check out https://codetricity.github.io/theta-linux/optimization/
 
 	if (!gst_src_init(&argc, &argv, pipe_proc))
 		return -1;
@@ -247,6 +248,24 @@ main(int argc, char **argv)
 	
 	res = thetauvc_get_stream_ctrl_format_size(devh,
 			THETAUVC_MODE_UHD_2997, &ctrl);
+
+	if (argc > 1 && strcmp("--format", argv[1]) == 0) {
+		if (argc > 2 && strcmp("4K", argv[2]) == 0) {
+			printf("THETA live video is 4K");
+			res = thetauvc_get_stream_ctrl_format_size(devh,
+				THETAUVC_MODE_UHD_2997, &ctrl);
+		} else if (argc > 2 && strcmp("2K", argv[2]) == 0) {
+			printf("THETA live video is 2K");
+			res = thetauvc_get_stream_ctrl_format_size(devh,
+				THETAUVC_MODE_FHD_2997, &ctrl);
+		}
+
+		else {
+			printf("specify video device. --format 4K or --format 2K\n");
+			goto exit;
+		}
+	}
+
 	src.dwFrameInterval = ctrl.dwFrameInterval;
 	src.dwClockFrequency = ctrl.dwClockFrequency;
 
