@@ -4,6 +4,7 @@ User: uc3m
 Password: uc3mOrin#
 
 # todo
+git clean --force -x  -d &&git fetch && git reset --hard origin/main && git pull
 
 
 # Live-sharing
