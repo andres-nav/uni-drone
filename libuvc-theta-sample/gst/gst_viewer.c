@@ -190,6 +190,7 @@ main(int argc, char **argv)
 			"v4l2sink device=/dev/video0 qos=false sync=false";
 	else
 		pipe_proc = " decodebin ! autovideosink sync=false";
+		/* pipe_proc = " decodebin ! nv3dsink sync=false"; */ //new version https://community.theta360.guide/t/live-streaming-over-usb-on-ubuntu-and-linux-nvidia-jetson/4359/42
 
 	if (!gst_src_init(&argc, &argv, pipe_proc))
 		return -1;

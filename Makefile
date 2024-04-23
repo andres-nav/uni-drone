@@ -18,6 +18,9 @@ install: install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback
 run:
 	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_viewer
 
+loopback:
+	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_loopback
+
 # install-libusb:
 # 	echo "Building libusb"
 # 	sudo apt install -y automake libudev-dev
@@ -35,6 +38,9 @@ install-libuvc-theta:
 
 install-libuvc-theta-sample:
 	echo "Building libuvc-theta-sample"
+	sudo apt install -y v4l-utils
+	sudo apt-get install gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
+	sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev
 	$(MAKE) -C $(LIBUVC_THETA_SAMPLE_DIR)
 
 install-v4l2loopback:
