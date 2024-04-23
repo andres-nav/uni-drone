@@ -3,6 +3,10 @@
 User: uc3m
 Password: uc3mOrin#
 
+# todo
+
+install flameshot
+
 # Live-sharing
 
 - [Live streaming to Jetson](https://codetricity.github.io/theta-linux/equipment/)
