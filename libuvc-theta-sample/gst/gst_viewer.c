@@ -186,12 +186,12 @@ main(int argc, char **argv)
 
 	if (strcmp(cmd_name, "gst_loopback") == 0)
 		/* pipe_proc = "decodebin ! autovideoconvert ! " */
-		pipe_proc = "nvv4l2decoder ! autovideoconvert ! "
+		/* pipe_proc = "nvv4l2decoder ! autovideoconvert ! " */
+		pipe_proc = "nvv4l2decoder ! nvvidconv ! "
 			"video/x-raw,format=I420 ! identity drop-allocation=true !"
-			"v4l2sink device=/dev/video0 qos=false sync=false";
+			"nv3dsink device=/dev/video0 qos=false sync=false";
 	else
-		/* pipe_proc = " decodebin ! autovideosink sync=false"; */
-		pipe_proc = "nvv4l2decoder ! nv3dsink sync=false";
+		pipe_proc = "nvv4l2decoder ! nv3dsink sync=false qos=false";
 
 	// check out https://codetricity.github.io/theta-linux/optimization/
 
