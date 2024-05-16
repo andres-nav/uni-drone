@@ -10,6 +10,8 @@ install
 https://github.com/nickel110/gstthetauvc
 https://codetricity.github.io/theta-linux/software/#using-gstthetauvc-to-eliminate-v4l2loopback
 
+maybe i need to install https://packages.debian.org/sid/libopencv-videoio4.2
+
 
 # Live-sharing
 
