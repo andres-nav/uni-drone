@@ -1,3 +1,6 @@
 [submodule "gstthetauvc"]
 	path = gstthetauvc
 	url = git@github.com:andres-nav/gstthetauvc.git
+[submodule "libuvc-theta-sample"]
+	path = libuvc-theta-sample
+	url = git@github.com:andres-nav/libuvc-theta-sample.git
