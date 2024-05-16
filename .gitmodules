@@ -1,0 +1,3 @@
+[submodule "gstthetauvc"]
+	path = gstthetauvc
+	url = git@github.com:andres-nav/gstthetauvc.git
