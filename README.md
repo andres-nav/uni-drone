@@ -6,14 +6,21 @@ Password: uc3mOrin#
 # todo
 git clean --force -x  -d &&git fetch && git reset --hard origin/main && git pull
 
+install 
+https://github.com/nickel110/gstthetauvc
+https://codetricity.github.io/theta-linux/software/#using-gstthetauvc-to-eliminate-v4l2loopback
+
 
 # Live-sharing
 
 - [Live streaming to Jetson](https://codetricity.github.io/theta-linux/equipment/)
 
+
 # Flash new Jetpack
 
 http://www.yahboom.net/study/Jetson-Orin-NANO
+
+
 
 ## Steps to install Jetson
 

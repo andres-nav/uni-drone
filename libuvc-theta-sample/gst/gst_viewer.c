@@ -187,9 +187,16 @@ main(int argc, char **argv)
 	if (strcmp(cmd_name, "gst_loopback") == 0)
 		/* pipe_proc = "decodebin ! autovideoconvert ! " */
 		/* pipe_proc = "nvv4l2decoder ! autovideoconvert ! " */
-		pipe_proc = "nvv4l2decoder ! nvvidconv ! "
-			"video/x-raw,format=I420 ! identity drop-allocation=true !"
+		pipe_proc = "nvv4l2decoder ! "
+			/* "video/x-raw,format=YV12 ! identity drop-allocation=true !" */
+			/* "v4l2sink device=/dev/video0 qos=false sync=false"; */
 			"nv3dsink device=/dev/video0 qos=false sync=false";
+		/* pipe_proc = "nvv4l2decoder ! videoconvert n-thread=0 ! " */
+		/* 	"video/x-raw,format=I420 ! identity drop-allocation=true !" */
+		/* 	"v4l2sink device=/dev/video0 qos=false sync=false"; */
+		/* pipe_proc = "nvv4l2decoder ! " */
+		/* 	"nvvidconv ! video/x-raw,format=I420 ! identity drop-allocation=true !" from https://github.com/Small-Island/MyWork-NX4_6/blob/9ff3b07d8b6f2d0cb5e5f8187d84377953d1ade7/libuvc-theta-sample/gst/gst_viewer.c#L194 */
+		/* 	"v4l2sink device=/dev/video0 sync=false qos=false"; */
 	else
 		pipe_proc = "nvv4l2decoder ! nv3dsink sync=false qos=false";
 
