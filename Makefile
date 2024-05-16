@@ -6,22 +6,22 @@ LIBUVC_THETA_DIR := $(PWD)/libuvc-theta
 LIBUVC_THETA_BUILD_DIR := $(LIBUVC_THETA_DIR)/build
 LIBUVC_THETA_SAMPLE_DIR := $(PWD)/libuvc-theta-sample/gst
 V4L2LOOPBACK_DIR := $(PWD)/v4l2loopback
-
+GSTTHETAUVC_DIR := $(PWD)/gstthetauvc/thetauvc
 
 .PHONY: all
 all: run
 
 .PHONY: install
-install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback
+install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback install-gstthetauvc
 	@echo "Installation completed."
 
 .PHONY: run
 run:
 	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_viewer
 
-.PHONY: install-libusb
-loopback:
-	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_loopback
+.PHONY: gstthetauvc
+gstthetauvc:
+	LD_LIBRARY_PATH=/usr/local/lib GST_PLUGIN_PATH=$(GSTTHETAUVC_DIR)
 
 .PHONY: install-basic
 install-basic:
@@ -44,6 +44,11 @@ install-v4l2loopback:
 	echo "Installing v4l2loopback"
 	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install && sudo depmod -a
 	sudo depmod -a
+
+.PHONY: install-gstthetauvc
+install-gstthetauvc:
+	echo "Installing gstthetauvc"
+	$(MAKE) -C $(LIBUVC_THETA_SAMPLE_DIR)
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)
