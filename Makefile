@@ -26,7 +26,7 @@ loopback:
 
 .PHONY: gstthetauvc
 gstthetauvc:
-	LD_LIBRARY_PATH=/usr/local/lib GST_PLUGIN_PATH=$(GSTTHETAUVC_DIR)
+	gst-launch-1.0 thetauvcsrc mode=4K ! queue ! h264parse ! nvv4l2decoder ! queue ! nv3dsink sync=false
 
 .PHONY: install-basic
 install-basic:
@@ -47,13 +47,14 @@ install-libuvc-theta-sample:
 .PHONY: install-v4l2loopback
 install-v4l2loopback:
 	echo "Installing v4l2loopback"
-	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install && sudo depmod -a
+	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install
 	sudo depmod -a
 
 .PHONY: install-gstthetauvc
 install-gstthetauvc:
 	echo "Installing gstthetauvc"
-	$(MAKE) -C $(LIBUVC_THETA_SAMPLE_DIR)
+	$(MAKE) -C $(GSTTHETAUVC_DIR)
+	sudo cp $(GSTTHETAUVC_DIR)/gstthetauvc.so /usr/lib/aarch64-linux-gnu/gstreamer-1.0/
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)
