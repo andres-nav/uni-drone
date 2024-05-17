@@ -7,12 +7,13 @@ LIBUVC_THETA_BUILD_DIR := $(LIBUVC_THETA_DIR)/build
 LIBUVC_THETA_SAMPLE_DIR := $(PWD)/libuvc-theta-sample/gst
 V4L2LOOPBACK_DIR := $(PWD)/v4l2loopback
 GSTTHETAUVC_DIR := $(PWD)/gstthetauvc/thetauvc
+OPENCV_DIR := $(PWD)/opencv
 
 .PHONY: all
 all: run
 
 .PHONY: install
-install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback install-gstthetauvc
+install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback install-gstthetauvc install-opencv
 	@echo "Installation completed."
 
 .PHONY: viewer
@@ -55,6 +56,13 @@ install-gstthetauvc:
 	echo "Installing gstthetauvc"
 	$(MAKE) -C $(GSTTHETAUVC_DIR)
 	sudo cp $(GSTTHETAUVC_DIR)/gstthetauvc.so /usr/lib/aarch64-linux-gnu/gstreamer-1.0/
+
+.PHONY: install-opencv
+install-opencv:
+	sudo apt install -y python3 python3-dev python3-numpy python3-pip libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad cmake gcc g++ libavcodec-dev libavformat-dev libswscale-dev libgtk-3-dev
+	$(CMAKE) -S $(OPENCV_DIR) -B $(OPENCV_DIR)/build -D CMAKE_BUILD_TYPE=RELEASE -D OPENCV_ENABLE_NONFREE=ON  -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON
+	$(MAKE) -C $(OPENCV_DIR)/build
+	sudo $(MAKE) -C $(OPENCV_DIR)/build install
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)

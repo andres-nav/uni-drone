@@ -11,3 +11,6 @@
 [submodule "v4l2loopback"]
 	path = v4l2loopback
 	url = https://github.com/andres-nav/v4l2loopback.git
+[submodule "opencv"]
+	path = opencv
+	url = https://github.com/andres-nav/opencv.git

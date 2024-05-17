@@ -1,13 +1,7 @@
 import cv2
 
 cap = cv2.VideoCapture(
-    "thetauvcsrc \
-    ! nvv4l2decoder \
-    ! queue \
-    ! videoconvert n-threads=0 \
-    ! video/x-raw,format=BGR \
-    ! queue \
-    ! appsink"
+    "thetauvcsrc mode=4K ! h264parse ! nvv4l2decoder ! nvvidconv ! appsink"
 )
 
 # Check if the webcam is opened correctly
