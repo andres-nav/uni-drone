@@ -1,9 +1,6 @@
 [submodule "gstthetauvc"]
 	path = gstthetauvc
 	url = https://github.com/andres-nav/gstthetauvc.git
-[submodule "libuvc-theta-sample"]
-	path = libuvc-theta-sample
-	url = https://github.com/andres-nav/libuvc-theta-sample.git
 [submodule "libuvc-theta"]
 	path = libuvc-theta
 	url = https://github.com/andres-nav/libuvc-theta.git
