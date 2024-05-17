@@ -21,6 +21,7 @@ viewer:
 
 .PHONY: loopback
 loopback:
+	$(LIBUVC_THETA_SAMPLE_DIR)/../scripts/set_v4l.sh
 	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_loopback
 
 .PHONY: gstthetauvc
