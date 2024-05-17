@@ -8,3 +8,6 @@
 	path = libuvc-theta-sample
 	url = https://github.com/andres-nav/libuvc-theta-sample.git
 	branch = theta_x
+[submodule "v4l2loopback"]
+	path = v4l2loopback
+	url = https://github.com/andres-nav/v4l2loopback.git

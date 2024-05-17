@@ -5,14 +5,14 @@ AUTORECONF	:= /usr/bin/autoreconf
 LIBUVC_THETA_DIR := $(PWD)/libuvc-theta
 LIBUVC_THETA_BUILD_DIR := $(LIBUVC_THETA_DIR)/build
 LIBUVC_THETA_SAMPLE_DIR := $(PWD)/libuvc-theta-sample/gst
-# V4L2LOOPBACK_DIR := $(PWD)/v4l2loopback
+V4L2LOOPBACK_DIR := $(PWD)/v4l2loopback
 GSTTHETAUVC_DIR := $(PWD)/gstthetauvc/thetauvc
 
 .PHONY: all
 all: run
 
 .PHONY: install
-install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-gstthetauvc
+install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-v4l2loopback install-gstthetauvc
 	@echo "Installation completed."
 
 .PHONY: viewer
@@ -44,11 +44,11 @@ install-libuvc-theta-sample:
 	echo "Installing libuvc-theta-sample"
 	$(MAKE) -C $(LIBUVC_THETA_SAMPLE_DIR)
 
-# .PHONY: install-v4l2loopback
-# install-v4l2loopback:
-# 	echo "Installing v4l2loopback"
-# 	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install && sudo depmod -a
-# 	sudo depmod -a
+.PHONY: install-v4l2loopback
+install-v4l2loopback:
+	echo "Installing v4l2loopback"
+	$(MAKE) -C $(V4L2LOOPBACK_DIR) && sudo $(MAKE) -C $(V4L2LOOPBACK_DIR) install && sudo depmod -a
+	sudo depmod -a
 
 .PHONY: install-gstthetauvc
 install-gstthetauvc:

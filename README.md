@@ -3,8 +3,14 @@
 User: uc3m
 Password: uc3mOrin#
 
+# things to take into account
+Disable automount otherwise the camera can be mounted so you cannot get the stream
+https://community.theta360.guide/t/disable-theta-automount-on-linux-and-nvidia-jetson-for-usb-api/8567
+
 # todo
 git clean --force -x  -d &&git fetch && git reset --hard origin/main && git pull
+
+
 
 install 
 https://github.com/nickel110/gstthetauvc
