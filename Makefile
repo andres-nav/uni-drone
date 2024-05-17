@@ -15,9 +15,13 @@ all: run
 install: clean install-basic install-libuvc-theta install-libuvc-theta-sample install-gstthetauvc
 	@echo "Installation completed."
 
-.PHONY: run
-run:
+.PHONY: viewer
+viewer:
 	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_viewer
+
+.PHONY: loopback
+loopback:
+	LD_LIBRARY_PATH=/usr/local/lib $(LIBUVC_THETA_SAMPLE_DIR)/gst_loopback
 
 .PHONY: gstthetauvc
 gstthetauvc:
