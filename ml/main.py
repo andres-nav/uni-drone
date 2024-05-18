@@ -6,7 +6,7 @@ CONFIDENCE_THRESHOLD = 0.8
 GREEN = (0, 255, 0)
 
 cap = cv2.VideoCapture(
-    "thetauvcsrc mode=4K ! queue ! h264parse ! nvv4l2decoder ! queue ! nvvidconv ! appsink"
+    "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink"
 )
 
 # Check if the webcam is opened correctly

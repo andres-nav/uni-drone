@@ -63,6 +63,7 @@ install-opencv:
 	$(CMAKE) -S $(OPENCV_DIR) -B $(OPENCV_DIR)/build -D CMAKE_BUILD_TYPE=RELEASE -D OPENCV_ENABLE_NONFREE=ON  -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON
 	$(MAKE) -C $(OPENCV_DIR)/build
 	sudo $(MAKE) -C $(OPENCV_DIR)/build install
+	pip install ultralytics
 
 .PHONY: python
 python:
