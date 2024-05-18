@@ -64,5 +64,10 @@ install-opencv:
 	$(MAKE) -C $(OPENCV_DIR)/build
 	sudo $(MAKE) -C $(OPENCV_DIR)/build install
 
+.PHONY: python
+python:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/ml/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)

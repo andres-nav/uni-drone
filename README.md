@@ -7,6 +7,9 @@ Password: uc3mOrin#
 Disable automount otherwise the camera can be mounted so you cannot get the stream
 https://community.theta360.guide/t/disable-theta-automount-on-linux-and-nvidia-jetson-for-usb-api/8567
 
+sudo apt install -y patchelf
+patchelf --set-rpath /usr/local/lib /usr/local/lib/python3.8/site-packages/cv2/python-3.8/cv2.cpython-38-aarch64-linux-gnu.so
+
 # todo
 git clean --force -x  -d &&git fetch && git reset --hard origin/main && git pull
 
