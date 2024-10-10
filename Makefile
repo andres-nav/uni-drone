@@ -69,6 +69,24 @@ install-opencv:
 python:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/ml/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+	
+
+.PHONY: websocket
+python:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/websocket/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
+
+.PHONY: http
+python:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/http/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
+
+.PHONY: localrecorder
+python:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/localrecorder/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)
