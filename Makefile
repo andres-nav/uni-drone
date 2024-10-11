@@ -72,19 +72,19 @@ python:
 	
 
 .PHONY: websocket
-python:
+websocket:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/websocket/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
 
 .PHONY: http
-python:
+http:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/http/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
 
 .PHONY: localrecorder
-python:
+localrecorder:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/localrecorder/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
