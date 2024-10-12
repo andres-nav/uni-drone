@@ -1,4 +1,5 @@
 import cv2
+import subprocess
 
 # Initialize the camera
 cap = cv2.VideoCapture(
@@ -10,28 +11,50 @@ if not cap.isOpened():
     raise IOError("Cannot open webcam")
 
 
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# Define the codec and create VideoWriter object to save the stream
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 'mp4v' for MP4
-out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (width, height))
+# Get video properties (resolution, frame rate)
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
 
-while cap.isOpened():
+# Output video file path
+output_file = 'output_cuda.mp4'
+
+# FFmpeg command for local recording with CUDA NVENC (H.264 encoding)
+ffmpeg_cmd = [
+    'ffmpeg',
+    '-y',  # Overwrite the output file if it exists
+    '-f', 'rawvideo',  # Input format (raw frames)
+    '-pix_fmt', 'bgr24',  # Pixel format used by OpenCV (24-bit BGR)
+    '-s', f'{frame_width}x{frame_height}',  # Input resolution
+    '-r', str(fps),  # Input framerate
+    '-i', '-',  # Input from stdin (piped from OpenCV)
+    '-c:v', 'hevc_nvenc',  # Use NVIDIA NVENC for H.265 encoding
+    '-preset', 'fast',  # Encoding preset (options: slow, medium, fast)
+    '-b:v', '5M',  # Set video bitrate (adjust as needed)
+    '-maxrate', '5M',  # Set max video bitrate
+    '-bufsize', '10M',  # Buffer size for rate control
+    output_file  # Output file
+]
+
+# Start FFmpeg process
+ffmpeg_proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE)
+
+# Capture and write frames to FFmpeg
+while True:
     ret, frame = cap.read()
-    if ret:
-        # Write the frame into the file 'output_4K.mp4'
-        out.write(frame)
-
-        # Show the video in a window (optional, be aware 4K might strain the display)
-        #cv2.imshow('4K Video Stream', frame)
-
-
-
-    else:
+    if not ret:
         break
 
-# Release everything once the job is finished
+    # Write the frame to FFmpeg's stdin
+    ffmpeg_proc.stdin.write(frame.tobytes())
+
+    # Display the frame locally (optional)
+    cv2.imshow('Video Recording with CUDA', frame)
+
+
+# Release resources
 cap.release()
-out.release()
+ffmpeg_proc.stdin.close()
+ffmpeg_proc.wait()
 cv2.destroyAllWindows()
