@@ -1,19 +1,20 @@
 import cv2
 
 # Initialize the camera
-video_capture = cv2.VideoCapture( "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink")
+cap = cv2.VideoCapture(
+     "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink"
+     )
 
 # Set the video resolution to 4K (3840x2160)
-video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# Define the codec and create VideoWriter object
-# 'XVID' for AVI or 'mp4v' for MP4.
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Use 'mp4v' for MP4
-out = cv2.VideoWriter('output_4K.mp4', fourcc, 20.0, (3840, 2160))
+# Define the codec and create VideoWriter object to save the stream
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 'mp4v' for MP4
+out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (width, height))
 
-while video_capture.isOpened():
-    ret, frame = video_capture.read()
+while cap.isOpened():
+    ret, frame = cap.read()
     if ret:
         # Write the frame into the file 'output_4K.mp4'
         out.write(frame)
@@ -28,6 +29,6 @@ while video_capture.isOpened():
         break
 
 # Release everything once the job is finished
-video_capture.release()
+cap.release()
 out.release()
 cv2.destroyAllWindows()

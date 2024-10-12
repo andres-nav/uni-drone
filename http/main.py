@@ -4,19 +4,21 @@ import cv2
 app = Flask(__name__)
 
 # Initialize the camera
-video_capture = cv2.VideoCapture( "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink")
+cap = cv2.VideoCapture(
+    "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink"
+)
 
-# Set the video resolution to 4K (3840x2160)
-video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # Define the codec and create VideoWriter object to save the stream
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 'mp4v' for MP4
-out = cv2.VideoWriter('output_4K.mp4', fourcc, 20.0, (3840, 2160))
+out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (width, height))
+
 
 def generate_frames():
     while True:
-        success, frame = video_capture.read()
+        success, frame = cap.read()
         if not success:
             break
         else:
@@ -39,8 +41,8 @@ def video_feed():
 
 if __name__ == "__main__":
     # Run the Flask app (host='0.0.0.0' makes it accessible over the network)
-    app.run(host='0.0.0.0', port=9999, debug=True)
+    app.run(host='0.0.0.0', port=9999, debug=False)
 
 # Release resources when the app is stopped
-video_capture.release()
+cap.release()
 out.release()
