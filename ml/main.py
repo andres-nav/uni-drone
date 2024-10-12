@@ -1,7 +1,8 @@
 from ultralytics import YOLO
+import torch
 import cv2
 
-# define some constants
+# Define some constants
 CONFIDENCE_THRESHOLD = 0.8
 GREEN = (0, 255, 0)
 
@@ -13,9 +14,8 @@ cap = cv2.VideoCapture(
 if not cap.isOpened():
     raise IOError("Cannot open webcam")
 
-
-model = YOLO("yolov8n.pt")
-
+# Load YOLOv8 model and move it to the GPU
+model = YOLO("yolov8n.pt").to("cuda")  # Ensure the model runs on CUDA
 
 while True:
     ret, frame = cap.read()
@@ -25,28 +25,32 @@ while True:
         print("Failed to grab frame")
         break
 
+    # Resize the frame for faster inference
     frame = cv2.resize(frame, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_AREA)
 
-    # run the YOLO model on the frame
-    detections = model(frame)[0]
+    # Move the frame to the GPU for inference
+    frame_gpu = torch.tensor(frame).to("cuda")  # Ensure the frame is on CUDA
+
+    # Run the YOLO model on the frame (perform inference on the GPU)
+    detections = model(frame_gpu)[0]
 
     for data in detections.boxes.data.tolist():
-        # extract the confidence (i.e., probability) associated with the detection
+        # Extract the confidence associated with the detection
         confidence = data[4]
 
-        # filter out weak detections by ensuring the
-        # confidence is greater than the minimum confidence
+        # Filter out weak detections by ensuring the confidence is greater than the minimum
         if float(confidence) < CONFIDENCE_THRESHOLD:
             continue
 
-        # if the confidence is greater than the minimum confidence,
-        # draw the bounding box on the frame
+        # Draw the bounding box on the frame if confidence is sufficient
         xmin, ymin, xmax, ymax = int(data[0]), int(data[1]), int(data[2]), int(data[3])
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), GREEN, 2)
 
+    # Display the frame with detections
     cv2.imshow("Input", frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
+# Release resources
 cap.release()
 cv2.destroyAllWindows()
