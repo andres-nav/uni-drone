@@ -4,7 +4,10 @@ import asyncio
 import websockets
 
 # Initialize the video capture object
-cap = cv2.VideoCapture( "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink")  # Use your video source
+cap = cv2.VideoCapture(
+    "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink"
+)
+
 if not cap.isOpened():
     exit("Error: Camera not accessible.")
 

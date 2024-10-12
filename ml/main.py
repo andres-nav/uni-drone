@@ -13,6 +13,7 @@ cap = cv2.VideoCapture(
 if not cap.isOpened():
     raise IOError("Cannot open webcam")
 
+
 model = YOLO("yolov8n.pt")
 
 

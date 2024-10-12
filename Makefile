@@ -82,6 +82,11 @@ http:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/http/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
+.PHONY: rstp
+rstp:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/RSTP/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
 
 .PHONY: localrecorder
 localrecorder:
