@@ -82,6 +82,12 @@ http:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/http/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
 
+.PHONY: Old_http
+Old_http:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/Old_http/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
+
 .PHONY: rstp
 rstp:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/RSTP/main.py
@@ -92,6 +98,12 @@ rstp:
 localrecorder:
 	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/localrecorder/main.py
 	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
+.PHONY: Old_localrecorder
+Old_localrecorder:
+	PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH python3 $(PWD)/Old_localrecorder/main.py
+	# FIXME That PYTHONPATH is temprary solution. It should be fixed.
+
 
 clean:
 	rm -rf $(LIBUVC_THETA_BUILD_DIR)
