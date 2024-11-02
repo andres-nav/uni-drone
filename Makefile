@@ -27,7 +27,7 @@ loopback:
 
 .PHONY: gstthetauvc
 gstthetauvc:
-	gst-launch-1.0 thetauvcsrc mode=4K ! queue ! h264parse ! nvv4l2decoder ! queue ! nv3dsink sync=false \ location=<filename_h264.mp4> -e
+	gst-launch-1.0 thetauvcsrc mode=4K ! queue ! h264parse ! nvv4l2decoder ! queue ! nv3dsink sync=false
 
 .PHONY: install-basic
 install-basic:
