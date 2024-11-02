@@ -1,6 +1,5 @@
 import cv2
 import subprocess
-import threading
 import time
 from flask import Flask, Response
 
@@ -29,7 +28,7 @@ ffmpeg_cmd = [
     '-s', f'{frame_width}x{frame_height}',  # Input resolution
     '-r', str(fps),  # Input framerate
     '-i', '-',  # Input from stdin
-    '-c:v', 'h264_nvenc',  # CUDA-based encoding using NVENC
+    '-c:v', 'hevc_nvenc',  # CUDA-based encoding using NVENC
     '-preset', 'fast',  # NVENC encoding preset
     '-f', 'mpegts',  # MPEG transport stream format
     '-'  # Output to stdout (pipe to Flask)
@@ -64,18 +63,10 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + encoded_frame + b'\r\n\r\n')
 
-# Thread to stop the stream on keypress
-def stop_stream():
-    global is_streaming
-    while True:
-        if input("Press 'q' to stop streaming:\n").strip() == 'q':
-            is_streaming = False
-            break
 
 # Start the Flask app
 if __name__ == '__main__':
-    threading.Thread(target=stop_stream).start()  # Start thread for stopping the stream
-    app.run(host='0.0.0.0', port=5000, threaded=True)
+    app.run(host='0.0.0.0', port=9999, threaded=True)
 
     # Clean up resources
     video_capture.release()
