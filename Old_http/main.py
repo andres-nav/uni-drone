@@ -7,12 +7,12 @@ app = Flask(__name__)
 video_capture = cv2.VideoCapture( "thetauvcsrc mode=4K ! queue! h264parse! nvv4l2decoder ! queue ! nvvidconv ! video/x-raw,format=BGRx ! queue ! videoconvert ! video/x-raw,format=BGR ! queue ! appsink")
 
 # Set the video resolution to 4K (3840x2160)
-video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
-
+frame_width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = float(video_capture.get(cv2.CAP_PROP_FPS))
 # Define the codec and create VideoWriter object to save the stream
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 'mp4v' for MP4
-out = cv2.VideoWriter('output_4K.mp4', fourcc, 20.0, (3840, 2160))
+out = cv2.VideoWriter('output_4K.mp4', fourcc, fps, (frame_width, frame_height))
 
 def generate_frames():
     while True:
